@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Image, Category, Product
+from .forms import CategoryForm, ProductForm
 from admin_numeric_filter.admin import SliderNumericFilter
 
 class ImageAdmin(admin.ModelAdmin):
@@ -18,6 +19,7 @@ class ImageAdmin(admin.ModelAdmin):
 
 class CategoryAdmin(admin.ModelAdmin):
     model = Category
+    form = CategoryForm
     fieldsets = (
         ('General', {
             'fields': ('title', 'description',)
@@ -39,6 +41,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class ProductAdmin(admin.ModelAdmin):
     model = Product
+    form = ProductForm
     fieldsets = (
         ('General', {
             'fields': ('title', 'description', 'category')
