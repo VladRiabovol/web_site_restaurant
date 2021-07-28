@@ -1,3 +1,4 @@
 django
 Pillow
 django-baton
+django-admin-numeric-filter

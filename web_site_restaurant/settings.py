@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'admin_numeric_filter',
     'menu_pizza_sushi',
     'order_pizza_sushi',
     'menu_restaurant',
