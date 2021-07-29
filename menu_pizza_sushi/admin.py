@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Image, Category, Product
-from .forms import CategoryForm, ProductForm
+from .models import Image, Category, Dish
+from .forms import CategoryForm, DishForm
 from admin_numeric_filter.admin import SliderNumericFilter
 
 class ImageAdmin(admin.ModelAdmin):
@@ -39,9 +39,9 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ('title',)
 
 
-class ProductAdmin(admin.ModelAdmin):
-    model = Product
-    form = ProductForm
+class DishAdmin(admin.ModelAdmin):
+    model = Dish
+    form = DishForm
     fieldsets = (
         ('General', {
             'fields': ('title', 'description', 'category')
@@ -50,7 +50,7 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': ('image',)
         }),
         ('Price', {
-            'fields': ('price', 'status')
+            'fields': ('price',)
         }),
 
     )
@@ -59,10 +59,10 @@ class ProductAdmin(admin.ModelAdmin):
         'image',
         'slug',
     )
-    search_fields = ('title', 'category', 'status')
+    search_fields = ('title', 'category',)
 
 
 
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Product, ProductAdmin)
+admin.site.register(Dish, DishAdmin)

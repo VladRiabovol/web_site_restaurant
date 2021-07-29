@@ -3,8 +3,9 @@ import base64
 from django.utils.text import slugify
 
 class Image(models.Model):
-    title = models.CharField(max_length=50)
-    image = models.ImageField(blank=False, upload_to='static/img/menu_pizza_sushi/')
+    title = models.CharField(max_length=50, verbose_name='Назва')
+    image = models.ImageField(blank=False, upload_to='static/img/menu_pizza_sushi/',
+                              verbose_name='Зображення')
     base_64 = models.CharField(blank=False, max_length=600000, default="", editable=False)
     slug = models.SlugField(unique=True, blank=True)
 
@@ -18,12 +19,15 @@ class Image(models.Model):
         return self.title
 
 class Category(models.Model):
-    title = models.CharField(max_length=50)
-    description = models.TextField(max_length=300)
-    image = models.ForeignKey(Image, on_delete=models.SET_NULL, null=True, blank=True)
+    title = models.CharField(max_length=50, verbose_name='Заголовок')
+    description = models.TextField(max_length=300, verbose_name='Опис')
+    image = models.ForeignKey(Image, on_delete=models.SET_NULL, null=True, blank=True,
+                              verbose_name='Зображення')
     slug = models.SlugField(unique=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True,
+                                      verbose_name='Cтворенo')
+    updated_at = models.DateTimeField(auto_now=True,
+                                      verbose_name='Оновлено')
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -32,20 +36,21 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-class Product(models.Model):
-    title = models.CharField(max_length=150)
-    description = models.TextField(max_length=300)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-    image = models.ForeignKey(Image, on_delete=models.CASCADE)
-    price = models.DecimalField(default=0.0, max_digits=12, decimal_places=2)
-    status = models.BooleanField(default=False)
+class Dish(models.Model):
+    title = models.CharField(max_length=150, verbose_name='Заголовок')
+    description = models.TextField(max_length=300, verbose_name='Опис')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True,
+                                 verbose_name='Категорії')
+    image = models.ForeignKey(Image, on_delete=models.CASCADE, verbose_name='Зображення')
+    price = models.DecimalField(default=0.0, max_digits=12, decimal_places=2,
+                                verbose_name='Цiна')
     slug = models.SlugField(unique=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Cтворенo')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Оновлено')
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        super(Product, self).save(*args, **kwargs)
+        super(Dish, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
