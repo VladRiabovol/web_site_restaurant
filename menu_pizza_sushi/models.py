@@ -18,6 +18,10 @@ class Image(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = 'Зображення'
+        verbose_name_plural = 'Зображення'
+
 class Category(models.Model):
     title = models.CharField(max_length=50, verbose_name='Заголовок')
     description = models.TextField(max_length=300, verbose_name='Опис')
@@ -35,6 +39,11 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = 'Категорія'
+        verbose_name_plural = 'Категорії'
+
 
 class Dish(models.Model):
     title = models.CharField(max_length=150, verbose_name='Заголовок')
@@ -54,3 +63,7 @@ class Dish(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = 'Страва'
+        verbose_name_plural = 'Страви'

@@ -6,7 +6,7 @@ from admin_numeric_filter.admin import SliderNumericFilter
 class ImageAdmin(admin.ModelAdmin):
     model = Image
     fieldsets = (
-        ('General', {
+        ('Загальнi', {
              'fields': ('title', 'image',)
         }),
     )
@@ -21,10 +21,10 @@ class CategoryAdmin(admin.ModelAdmin):
     model = Category
     form = CategoryForm
     fieldsets = (
-        ('General', {
+        ('Загальнi', {
             'fields': ('title', 'description',)
         }),
-        ('Image', {
+        ('Зображення', {
             'fields': ('image',)
         }),
 
@@ -43,13 +43,13 @@ class DishAdmin(admin.ModelAdmin):
     model = Dish
     form = DishForm
     fieldsets = (
-        ('General', {
+        ('Загальнi', {
             'fields': ('title', 'description', 'category')
         }),
-        ('Image', {
+        ('Зображення', {
             'fields': ('image',)
         }),
-        ('Price', {
+        ('Цiна', {
             'fields': ('price',)
         }),
 
