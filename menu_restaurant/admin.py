@@ -5,9 +5,10 @@ from admin_numeric_filter.admin import SliderNumericFilter
 
 class ImageAdmin(admin.ModelAdmin):
     model = Image
+    prepopulated_fields = { 'slug' : ('title',), }
     fieldsets = (
         ('Загальнi', {
-             'fields': ('title', 'image',)
+             'fields': ('title', 'image', 'slug',)
         }),
     )
     list_display = (
@@ -19,10 +20,10 @@ class ImageAdmin(admin.ModelAdmin):
 
 class CategoryAdmin(admin.ModelAdmin):
     model = Category
-    form = CategoryForm
+    prepopulated_fields = {'slug': ('title',), }
     fieldsets = (
         ('Загальнi', {
-            'fields': ('title', 'description',)
+            'fields': ('title', 'description', 'slug',)
         }),
         ('Зображення', {
             'fields': ('image',)
@@ -42,9 +43,10 @@ class CategoryAdmin(admin.ModelAdmin):
 class DishAdmin(admin.ModelAdmin):
     model = Dish
     form = DishForm
+    prepopulated_fields = {'slug': ('title',), }
     fieldsets = (
         ('Загальнi', {
-            'fields': ('title', 'description', 'category')
+            'fields': ('title', 'description', 'category', 'slug',)
         }),
         ('Зображення', {
             'fields': ('image',)

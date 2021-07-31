@@ -4,13 +4,12 @@ from django.utils.text import slugify
 
 class Image(models.Model):
     title = models.CharField(max_length=50, verbose_name='Назва')
-    image = models.ImageField(blank=False, upload_to='static/img/menu_pizza_sushi/',
+    image = models.ImageField(blank=False, upload_to='uploads/img/pizza_sushi/',
                               verbose_name='Зображення')
     base_64 = models.CharField(blank=False, max_length=600000, default="", editable=False)
     slug = models.SlugField(unique=True, blank=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
         self.base_64 = base64.b64encode(self.image.read()).decode('utf-8')
 
         super(Image, self).save(*args, **kwargs)
@@ -33,9 +32,6 @@ class Category(models.Model):
     updated_at = models.DateTimeField(auto_now=True,
                                       verbose_name='Оновлено')
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super(Category, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
@@ -57,9 +53,6 @@ class Dish(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Cтворенo')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Оновлено')
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super(Dish, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
