@@ -1,12 +1,13 @@
 from django.db import models
 import base64
+from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
 class Image(models.Model):
     title = models.CharField(max_length=50, verbose_name='Назва')
-    image = models.ImageField(blank=False, upload_to='uploads/img/pizza_sushi/',
+    image = models.ImageField(blank=False, upload_to='img/menu_pizza_sushi',
                               verbose_name='Зображення')
-    base_64 = models.CharField(blank=False, max_length=600000, default="", editable=False)
+    base_64 = models.CharField(blank=False, max_length=600000, default="")
     slug = models.SlugField(unique=True, blank=True)
 
     def save(self, *args, **kwargs):

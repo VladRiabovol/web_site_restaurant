@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Image, Category, Dish
-from .forms import CategoryForm, DishForm
+from django.utils.safestring import mark_safe
 from admin_numeric_filter.admin import SliderNumericFilter
 
 class ImageAdmin(admin.ModelAdmin):
@@ -13,10 +13,16 @@ class ImageAdmin(admin.ModelAdmin):
     )
     list_display = (
         'title',
-        'image',
-        'slug',
+        'get_image',
     )
     search_fields = ('title',)
+
+    def get_image(self, obj):
+        return mark_safe(f'<img src="{obj.image.url}" width="100" height="60">')
+
+    get_image.short_description = 'Зображення'
+
+
 
 class CategoryAdmin(admin.ModelAdmin):
     model = Category
@@ -42,7 +48,6 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class DishAdmin(admin.ModelAdmin):
     model = Dish
-    form = DishForm
     prepopulated_fields = {'slug': ('title',), }
     fieldsets = (
         ('Загальнi', {
@@ -58,10 +63,18 @@ class DishAdmin(admin.ModelAdmin):
     )
     list_display = (
         'title',
-        'image',
-        'slug',
+        'get_image',
+        'description',
+        'category',
+        'price',
+
     )
     search_fields = ('title', 'category',)
+
+    def get_image(self, obj):
+        return mark_safe(f'<img src="{obj.image.image.url}" width="100" height="60">')
+
+    get_image.short_description = 'Зображення'
 
 
 

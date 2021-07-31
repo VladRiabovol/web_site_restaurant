@@ -4,7 +4,7 @@ from django.utils.text import slugify
 
 class Image(models.Model):
     title = models.CharField(max_length=50, verbose_name='Назва')
-    image = models.ImageField(blank=False, upload_to='uploads/img/restaurant/',
+    image = models.ImageField(blank=False, upload_to='img/menu_restaurant/',
                               verbose_name='Зображення')
     base_64 = models.CharField(blank=False, max_length=600000, default="", editable=False)
     slug = models.SlugField(unique=True, blank=True)
