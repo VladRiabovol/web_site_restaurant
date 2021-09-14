@@ -11,9 +11,11 @@ class Cart(models.Model):
                                       verbose_name='Cтворенo')
     updated_at = models.DateTimeField(auto_now=True, null=True, verbose_name='Оновлено')
 
+
     class Meta:
         verbose_name = 'Кошик'
         verbose_name_plural = 'Кошик'
+
 
 class Order(models.Model):
     DELIVERY = (
@@ -49,6 +51,7 @@ class Order(models.Model):
 
     def __str__(self):
         return f'{self.name}, {self.delivery}, {self.payment}, сумма: {self.cart.total_price}'
+
 
     class Meta:
         verbose_name = 'Замовлення'

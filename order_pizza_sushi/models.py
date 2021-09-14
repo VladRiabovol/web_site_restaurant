@@ -50,6 +50,7 @@ class Order(models.Model):
     def __str__(self):
         return f'{self.name}, {self.delivery}, {self.payment}, сумма: {self.cart.total_price}'
 
+
     class Meta:
         verbose_name = 'Замовлення'
         verbose_name_plural = 'Замовлення'

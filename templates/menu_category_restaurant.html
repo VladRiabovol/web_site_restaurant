@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block menu_restaurant_category %}
+<div class="container-fluid">
+    <div class="row">
+            <div class="col-xs-2 col-sm-3 col-md-12">
+                {% for category in categories_list %}
+                    <button class="category-button2">
+                        <a href="{% url 'restaurant-category-list' category.slug %}" class="text-decoration-none">{{category.title}}</a>   
+                    </button>
+                {% endfor %}
+            </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block menu_restaurant_category_dishes_list%}
+<section class="container my-3 p-0">
+    {% for product in dish_list %}
+        {% if forloop.first %}
+            <div class="row row-cols-1 row-cols-lg-4 row-cols-md-2 m-0 p-0">
+        {% endif %}
+    <div class="card p-0 m-0 rounded-0 col">
+        <a href="#">
+            <img src="data:image/jpg;base64, {{ product.image.base_64 }}" class="card-img-top" alt="...">
+        </a>
+        <div class="card-body">
+            <div class="card-title d-block text-center">
+                <h4 class="d-block product-title">
+                        {{ product.title }}
+                </h4>
+            </div>
+            <div class="card-text mt-2 container">
+                    <ul class="list-group list-group-flush">
+                        <li class="p-0 mt-1 list-group-item text-center">
+                            <small class="text-secondary m-0 p-0 text-uppercase"></small>
+                            <small class="text-secondary badge m-0 p-0">{{ desc }}</small>
+                        </li>
+                    </ul> 
+            </div>
+        </div>
+        <div class="card-footer d-flex justify-content-between w-100 align-items-center ps-sm-3 pe-sm-4 px-md-1 px-lg-3">
+            <h5 class="text-dark d-inline p-0 m-0 d-block align-self-auto">
+                <strong>{{ product.price|floatformat:-2 }}грн</strong>
+            </h5>
+            <div class="btn-group btn-group-sm align-items-baseline align-self-baseline" role="group"
+                aria-label="Basic example">
+                <button class="cart-button">
+                    <strong>-</strong>    
+                </button>
+                <button class="cart-button">
+                    <strong>+</strong>    
+                </button>
+                <button class="cart-button">
+                    <strong>в корзину</strong>    
+                </button>
+                    
+                    </a>
+            </div>
+            
+        </div>
+    </div>
+    {% if forloop.counter|divisibleby:4 %}
+        </div>
+        <div class="row row-cols-1 row-cols-lg-4 row-cols-md-2 m-0 p-0">
+    {% endif %}
+    {% if forloop.last %}</div>{% endif %}
+    {% endfor %}
+{% endblock %}

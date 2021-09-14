@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +26,7 @@ urlpatterns = [
     path('', include('order_pizza_sushi.urls')),
     path('', include('menu_restaurant.urls')),
     path('', include('order_restaurant.urls')),
+    path('index/', views.MainPageView.as_view(), name='index'),
 
 ]
 

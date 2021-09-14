@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Image, Category, Dish
+from menu_restaurant.models import Image, Category, Dish
 from django.utils.safestring import mark_safe
-from admin_numeric_filter.admin import SliderNumericFilter
+
 
 class ImageAdmin(admin.ModelAdmin):
     model = Image

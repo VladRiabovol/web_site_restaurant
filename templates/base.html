@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@700&display=swap" rel="stylesheet">
+    <script src="{% static '/js/bootstrap.min.js' %}"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Головна сторiнка</title>
+    <style>
+        .img-index {
+            width: 100%;
+            height: auto;
+            float: left;
+        }
+        .img-instagram {
+            width: 5%;
+            height: auto;
+        }
+        .nav {
+            padding-left: 3%;
+            text-align: center;
+            background-color: rgb(31, 28, 28);
+            color: blanchedalmond;
+        }
+        .nav-logo {
+            text-align: center;
+            background-color: rgb(31, 28, 28);
+
+        }
+        .font-forum {
+            font-family: 'Ubuntu Mono', monospace;
+            color:honeydew;
+            width: 100%;
+            text-align: center;
+            font-size:xx-large;
+        }
+        .nav-font {
+            text-align: center;
+            font-family: 'Ubuntu Mono', monospace;
+            color:honeydew;
+            width: auto;
+            height: auto;
+            font-size: xx-large;
+            font-weight:bold;
+        }
+        .nav-button {
+            background-color: rgb(31, 28, 28);
+            font-family: 'Ubuntu Mono', monospace;
+            color:honeydew;
+            width: auto;
+            height: auto;
+            font-size: xx-large;
+            margin: 0;
+            border: none;
+        }
+        .category-button {
+            font-family: 'Roboto', sans-serif;
+            border-radius: 10px;
+            padding: 5px;
+            background-color: rgba(236, 244, 245, 0.507);
+            
+            font-size:medium;
+        }
+        .category-button2 {
+            padding: 5px;
+            font-family: 'Roboto', sans-serif;
+            border-radius: 5px;
+            background-color: rgb(31, 28, 28);
+            color:honeydew;
+            font-size:medium;
+        }
+        .cart-button {
+            background-color: rgba(214, 6, 6, 0.979);
+            color:lightcyan;
+        }
+        .cart-button2 {
+            background-color: rgb(255, 215, 38);
+        }
+        .cart-button3 {
+            background-color: rgb(133, 245, 89);
+        }
+        .product-title {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 nav-logo">
+                <button class="nav-button">
+                    <a href="{% url 'index' %}"><img class="img-index" src="{% static 'img/logo_brooklyn.png' %}" alt="Brooklyn"></a>
+                </button>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 nav-logo">
+                <h1 class="font-forum">095-33-61-656</h1>
+                <h2 class="font-forum">11:00-23:00</h2>
+                <h3 class="font-forum">Бесплатная доставка</h3>
+                <button class="nav-button">
+                    <a class="nav-link nav-font" aria-current="page" href="http://www.brooklynland.com.ua">
+                        <h3 class="font-forum">
+                            Instagram 
+                            <img class="img-instagram" src="{% static 'img/logo_instagram.png' %}" alt="Instagram">
+                        </h3>    
+                    </a>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3 nav">
+                <a class="nav-link nav-font" aria-current="page" href="{% url 'restaurant-dishes-list' %}">Меню ресторан</a>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 nav">
+                <a class="nav-link nav-font" aria-current="page" href="http://www.brooklynland.com.ua/?page_id=19">Меню суши пицца</a>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 nav">
+                <button class="nav-button">
+                    <a class="nav-link nav-font" aria-current="page">Заказать звонок</a>    
+                </button>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 nav">
+                <a class="nav-link nav-font" aria-current="page" href="http://www.brooklynland.com.ua">О нас</a>
+            </div>
+            
+            
+        </div>
+    </div>
+    
+    {% block img %}
+    {% endblock %}
+
+    {% block menu_restaurant_category %}
+    {% endblock %}
+
+    {% block menu_restaurant_dishes %}
+    {% endblock %}
+
+    {% block menu_restaurant_category_dishes_list%}
+    {% endblock %}
+
+</body>
+</html>

@@ -33,9 +33,9 @@ class Category(models.Model):
     updated_at = models.DateTimeField(auto_now=True,
                                       verbose_name='Оновлено')
 
-
     def __str__(self):
         return self.title
+
 
     class Meta:
         verbose_name = 'Категорія'
@@ -54,9 +54,9 @@ class Dish(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Cтворенo')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Оновлено')
 
-
     def __str__(self):
         return self.title
+
 
     class Meta:
         verbose_name = 'Страва'
