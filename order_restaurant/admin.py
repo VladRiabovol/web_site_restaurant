@@ -1,38 +1,31 @@
 from django.contrib import admin
-from .models import Order, Cart
-from admin_numeric_filter.admin import SliderNumericFilter
+from .models import Order, DishInOrder, DishInBasket
 
-class CartAdmin(admin.ModelAdmin):
-    model = Cart
+class DishInOrderInline(admin.TabularInline):
+    model = DishInOrder
+    extra = 0
+
+
+class DishInOrderAdmin(admin.ModelAdmin):
+    model = DishInOrder
     list_display = (
-        'created_at', 'quantity', 'total_price', 'updated_at',
+        'id', 'order', 'dish', 'total_price', 'created_at', 'updated_at'
+    )
+
+class DishInBasketAdmin(admin.ModelAdmin):
+    model = DishInOrder
+    list_display = (
+        'id', 'session_key', 'order', 'dish', 'number', 'total_price',
+        'is_active', 'created_at', 'updated_at'
     )
 
 class OrderAdmin(admin.ModelAdmin):
     model = Order
-    actions_on_top = True
-    fieldsets = (
-        ('Загальнi', {
-            'fields': ('name', 'phone', 'cart')
-        }),
-        ('Оплата', {
-            'fields': ('payment', 'change_from')
-        }),
-        ('Доставка', {
-            'fields': ('delivery', 'count_of_devices', 'street',
-                       'house', 'entrance', 'intercom', 'do_not_call',
-                       'time_of_delivery',)
-        }),
-        ('Коментар до заказу', {
-            'classes': ('collapse',),
-            'fields': ('comments',)
-        }),
-
-    )
+    inlines = [DishInOrderInline]
     list_display = (
-        'created_at', 'name', 'phone', 'cart', 'payment', 'change_from',
+        'id', 'created_at', 'name', 'phone', 'total_price', 'payment', 'change_from',
         'delivery', 'count_of_devices', 'street', 'house', 'entrance',
-        'intercom', 'do_not_call', 'time_of_delivery', 'comments',
+        'intercom', 'time_of_delivery', 'comments',
     )
     radio_fields = {
         'delivery': admin.HORIZONTAL,
@@ -41,8 +34,9 @@ class OrderAdmin(admin.ModelAdmin):
 
 
     }
-    list_filter = ('created_at', 'delivery', 'payment')
-    search_fields = ('created_at', 'name', 'payment')
+    list_filter = ()
+    search_fields = ()
 
 admin.site.register(Order, OrderAdmin)
-admin.site.register(Cart, CartAdmin)
+admin.site.register(DishInOrder, DishInOrderAdmin)
+admin.site.register(DishInBasket, DishInBasketAdmin)

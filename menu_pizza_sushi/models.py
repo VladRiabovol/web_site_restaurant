@@ -3,7 +3,7 @@ import base64
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
-class Image(models.Model):
+class ImagePizza(models.Model):
     title = models.CharField(max_length=50, verbose_name='Назва')
     image = models.ImageField(blank=False, upload_to='img/menu_pizza_sushi',
                               verbose_name='Зображення')
@@ -13,7 +13,7 @@ class Image(models.Model):
     def save(self, *args, **kwargs):
         self.base_64 = base64.b64encode(self.image.read()).decode('utf-8')
 
-        super(Image, self).save(*args, **kwargs)
+        super(ImagePizza, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
@@ -22,10 +22,10 @@ class Image(models.Model):
         verbose_name = 'Зображення'
         verbose_name_plural = 'Зображення'
 
-class Category(models.Model):
+class CategoryPizza(models.Model):
     title = models.CharField(max_length=50, verbose_name='Заголовок')
     description = models.TextField(max_length=300, verbose_name='Опис')
-    image = models.ForeignKey(Image, on_delete=models.SET_NULL, null=True, blank=True,
+    image = models.ForeignKey(ImagePizza, on_delete=models.SET_NULL, null=True, blank=True,
                               verbose_name='Зображення')
     slug = models.SlugField(unique=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True,
@@ -42,12 +42,12 @@ class Category(models.Model):
         verbose_name_plural = 'Категорії'
 
 
-class Dish(models.Model):
+class DishPizza(models.Model):
     title = models.CharField(max_length=150, verbose_name='Заголовок')
     description = models.TextField(max_length=300, verbose_name='Опис')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True,
+    category = models.ForeignKey(CategoryPizza, on_delete=models.CASCADE, null=True,
                                  verbose_name='Категорії')
-    image = models.ForeignKey(Image, on_delete=models.CASCADE, verbose_name='Зображення')
+    image = models.ForeignKey(ImagePizza, on_delete=models.CASCADE, verbose_name='Зображення')
     price = models.DecimalField(default=0.0, max_digits=12, decimal_places=2,
                                 verbose_name='Цiна')
     slug = models.SlugField(unique=True, blank=True)

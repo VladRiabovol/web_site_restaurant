@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import Image, Category, Dish
+from .models import ImagePizza, CategoryPizza, DishPizza
 from django.utils.safestring import mark_safe
 from admin_numeric_filter.admin import SliderNumericFilter
 
 class ImageAdmin(admin.ModelAdmin):
-    model = Image
+    model = ImagePizza
     prepopulated_fields = { 'slug' : ('title',), }
     fieldsets = (
         ('Загальнi', {
@@ -25,7 +25,7 @@ class ImageAdmin(admin.ModelAdmin):
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    model = Category
+    model = CategoryPizza
     prepopulated_fields = {'slug': ('title',), }
     fieldsets = (
         ('Загальнi', {
@@ -47,7 +47,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class DishAdmin(admin.ModelAdmin):
-    model = Dish
+    model = DishPizza
     prepopulated_fields = {'slug': ('title',), }
     fieldsets = (
         ('Загальнi', {
@@ -78,6 +78,6 @@ class DishAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(Image, ImageAdmin)
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Dish, DishAdmin)
+admin.site.register(ImagePizza, ImageAdmin)
+admin.site.register(CategoryPizza, CategoryAdmin)
+admin.site.register(DishPizza, DishAdmin)
