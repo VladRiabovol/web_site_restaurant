@@ -20,7 +20,7 @@ class Order(models.Model):
                              for minute in range(0, 59, 15))
 
     name = models.CharField(max_length=100, verbose_name="Ваше имя")
-    phone = models.CharField(max_length=17, verbose_name='Телефон')# add phone validator
+    phone = models.CharField(max_length=17, verbose_name='Телефон')
     payment = models.CharField(max_length=50, choices=PAYMENT, verbose_name='Оплата')
     change_from = models.CharField(blank=True, max_length=50, verbose_name='Сдача с')
     delivery = models.CharField(max_length=50, choices=DELIVERY, verbose_name='Доставка')
@@ -81,7 +81,6 @@ def dishes_in_order_post_save(sender, instance, created, **kwargs):
         order_total_price = 0
         for item in all_dishes_in_order:
             order_total_price += item.total_price
-
         instance.order.total_price = order_total_price
         instance.order.save(force_update=True)
 

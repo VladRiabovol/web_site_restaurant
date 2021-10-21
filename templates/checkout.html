@@ -25,17 +25,14 @@
                                         </span>
                                     </div>
                                 </td>
-
-
-                                <td class="td">
-                                    <input size="1" min="0" class="p-1 dish-in-basket-number checkout-text" 
-                                            value="{{ dish_in_basket.number }}" type="number" name="dish_in_basket_{{ dish_in_basket.id }}">
-                                </td>
                                 <td class="td">
                                     <span class="dish-price checkout-text">
                                         {{ dish_in_basket.price_per_item }}₴
                                     </span>
-
+                                </td>
+                                <td class="td">
+                                    <input size="1" min="0" class="p-1 dish-in-basket-number checkout-text" 
+                                            value="{{ dish_in_basket.number }}" type="number" name="dish_in_basket_{{ dish_in_basket.id }}">
                                 </td>
                                 <td class="td">
                                     <span class="total-dish-in-basket-price checkout-text"> 

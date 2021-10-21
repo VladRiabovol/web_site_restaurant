@@ -19,8 +19,8 @@ class OrderForm(forms.Form):
 
 
     widget_attrs = {'class': 'form-control'}
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{12,15}$',
-                                 message="Телефон должен быть в формате '+380.........'")
+    phone_regex = RegexValidator(regex=r'^0\d{9}$',
+                                 message="Телефон должен быть в формате 0953361656")
 
     name = forms.CharField(label='Имя', widget=forms.widgets.TextInput(
                                         attrs={**widget_attrs, **{'id': 'fieldName'}}))

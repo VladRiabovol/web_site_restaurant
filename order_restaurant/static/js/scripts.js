@@ -29,7 +29,7 @@ $(document).ready(function () {
                 //console.log(data);
                 //console.log(data.dish_total_number);
                 if (data.dish_total_number) {
-                    $('#basket_total_number').text("("+data.dish_total_number+")");
+                    $('.count-basket').text(data.dish_total_number);
 
                     //console.log(data.dishes);
                     $('.basket-items ol').html('');

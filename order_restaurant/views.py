@@ -4,7 +4,7 @@ from django.shortcuts import render
 from order_restaurant.forms import OrderForm
 from django.shortcuts import redirect
 from django.urls import reverse
-
+from bot import bot
 def basket_adding(request):
     return_dict = dict()
     session_key = request.session.session_key
@@ -50,7 +50,7 @@ def checkout(request):
     dishes_in_basket = DishInBasket.objects.filter(session_key=session_key, is_active=True).exclude(order__isnull=False)
     form = OrderForm(request.POST or None)
     if request.POST:
-        #print(request.POST)
+        print(request.POST)
         if form.is_valid():
             print('valid')
             data = request.POST
@@ -71,23 +71,43 @@ def checkout(request):
 
 
 
+
             order = Order.objects.create(name=name, phone=phone, payment=payment, delivery=delivery,
                                          change_from=change_from, count_of_devices=count_of_devices,
                                          street=street, house=house, entrance=entrance, intercom=intercom,
                                          time_of_delivery=time_of_delivery, comments=comments)
-
+            dishes_in_order_bot = ""
+            total_price_bot = 0
             for name, value in data.items():
 
                 if name.startswith('dish_in_basket_'):
                     dish_in_basket_id = name.split('dish_in_basket_')[1]
                     dish_in_basket = DishInBasket.objects.get(id=dish_in_basket_id)
+
+
                     dish_in_basket.number = value
+                    dish_to_bot = str(dish_in_basket.dish.title) + ': ' + str(value) + 'шт\n'
+                    dishes_in_order_bot += dish_to_bot
+                    total_price_bot += int(dish_in_basket.dish.price) * int(value)
+                    print(dishes_in_order_bot)
+
                     dish_in_basket.save(force_update=True)
 
                     DishInOrder.objects.create(dish=dish_in_basket.dish, number=dish_in_basket.number,
                                                price_per_item=dish_in_basket.price_per_item,
                                                total_price=dish_in_basket.price_per_item,
                                                order=order)
+
+            message = f'Пришел заказ: Ресторан \nИмя: {name} \nТелефон: {phone} \n' \
+                      f'Доставка: {delivery} \n' \
+                      f'Время доставки: {time_of_delivery} \nОплата: {payment} \nСдача с: {change_from} \n' \
+                      f'Приборы: {count_of_devices} \nУлица: {street} \nДом: {house} \n' \
+                      f'Подьезд: {entrance} \nДомофон: {intercom} \nКоментарий: {comments}\n' \
+                      f'Блюда: \n{dishes_in_order_bot}' \
+                      f'Сумма заказа: {total_price_bot}'
+
+
+            bot.bot.send_message(bot.CHAT_ID, message)
             request.session.cycle_key()
 
             return redirect(reverse('end_of_checkout'))
