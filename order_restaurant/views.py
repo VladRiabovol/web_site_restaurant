@@ -125,3 +125,6 @@ def back_call(request):
 
 def end_of_back_call(request):
     return render(request, 'end_of_back_call.html')
+
+def about_us(request):
+    return render(request, 'about_us.html')

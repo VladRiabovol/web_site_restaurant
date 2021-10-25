@@ -1,0 +1,41 @@
+{% load static %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 nav-logo">
+            <button class="nav-button">
+                <a href="{% url 'index' %}"><img class="img-index" src="{% static 'img/logo_brooklyn.png' %}" alt="Brooklyn"></a>
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 nav-logo">
+            <h1 class="font-forum">095-33-61-656</h1>
+            <h2 class="font-forum">11:00-23:00</h2>
+            <h3 class="font-forum">Бесплатная доставка</h3>
+            <button class="nav-button">
+                <a class="nav-link nav-font" aria-current="page" href="https://www.instagram.com/brooklyn.land/?hl=en">
+                    <h3 class="font-forum">
+                        Instagram 
+                        <img class="img-instagram" src="{% static 'img/logo_instagram.png' %}" alt="Instagram">
+                    </h3>    
+                </a>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-3 nav">
+            <a class="nav-link nav-font" aria-current="page" href="{% url 'restaurant-dishes-list' %}">Меню ресторан</a>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 nav">
+            <a class="nav-link nav-font" aria-current="page" href="{% url 'sushi-pizza-dishes-list' %}">Меню суши пицца</a>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 nav">
+            <button class="nav-button">
+                <a class="nav-link nav-font" aria-current="page" href="{% url 'back_call' %}">Заказать звонок</a>    
+            </button>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 nav">
+            <a class="nav-link nav-font" aria-current="page" href="{% url 'about_us' %}">О нас</a>
+        </div>
+        
+        
+    </div>
+</div>
