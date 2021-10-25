@@ -109,10 +109,43 @@
     font-size: medium;
     padding: 0;
 }
+.basket-container-sp {
+    background-color: #f5f700;
+    width: auto;
+    padding: 3px;
+    right: 0px;
+    float: right;
+    position: relative;
+    border-radius: 5px;
+
+}
+.basket-container-sp a {
+    text-decoration: none;
+    color: #212529;
+    font-weight: 900;
+}
+.basket-items-sp {
+    background-color: #f5f700;
+    position: absolute;
+    top: 50px;
+    width: 350px;
+    float: right;
+    right: 0px;
+    z-index: 10;
+    border-radius: 5px;
+    font-weight: 800;
+    font-size: medium;
+    padding: 0;
+}
 .img-basket {
     position: absolute;
 }
 .count-basket {
+    position: absolute;
+    top: 24px;
+    right: 21px;
+}
+.count-basket-sp {
     position: absolute;
     top: 24px;
     right: 21px;

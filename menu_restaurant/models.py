@@ -1,6 +1,5 @@
 from django.db import models
 import base64
-from django.utils.text import slugify
 
 class Image(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название')

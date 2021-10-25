@@ -6,11 +6,6 @@ from django.utils.safestring import mark_safe
 class ImageAdmin(admin.ModelAdmin):
     model = Image
     prepopulated_fields = { 'slug' : ('title',), }
-#    fieldsets = (
-#        ('Общие', {
-#             'fields': ('title', 'image', 'slug',)
-#        }),
-#    )
     list_display = (
         'title',
         'get_image',
@@ -20,22 +15,13 @@ class ImageAdmin(admin.ModelAdmin):
     def get_image(self, obj):
         return mark_safe(f'<img src="{obj.image.url}" width="100" height="60">')
 
-    get_image.short_description = 'Зображення'
+    get_image.short_description = 'Изображение'
 
 
 
 class CategoryAdmin(admin.ModelAdmin):
     model = Category
     prepopulated_fields = {'slug': ('title',), }
-#    fieldsets = (
-#       ('Общие', {
-#           'fields': ('title', 'description', 'slug',)
-#       }),
-#       ('Изображение', {
-#           'fields': ('image',)
-#       }),
-#
-#   )
     list_display = (
         'title',
         'slug',
@@ -49,18 +35,6 @@ class CategoryAdmin(admin.ModelAdmin):
 class DishAdmin(admin.ModelAdmin):
     model = Dish
     prepopulated_fields = {'slug': ('title',), }
-    #fieldsets = (
-    #    ('Общие', {
-    #        'fields': ('title', 'description', 'category', 'slug',)
-    #    }),
-    #    ('Изображение', {
-    #        'fields': ('image',)
-    #    }),
-    #    ('Цена', {
-    #        'fields': ('price',)
-    #    }),
-#
-    #)
     list_display = (
         'id',
         'title',

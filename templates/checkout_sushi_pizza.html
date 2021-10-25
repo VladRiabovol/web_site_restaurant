@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container h-200">
+    <div class="row justify-content-center align-self-center">
+        <div class="col-lg-6 col-lg-offset-4">
+            <h3 class="text-center">Ваш заказ:</h3>
+            <!--Form basket-->
+            <form method="post" class="form"> {% csrf_token %}
+                {% if dishes_in_basket %}
+                    <table  class=" text-center">
+                        <thead>
+
+                        </thead>
+                        <tbody class="checkout-items">
+                            {% for dish_in_basket in dishes_in_basket %}
+                            <tr>
+                                <td class="td">
+                                    <div class="title-checkout">
+                                        <img src="data:image/jpg;base64, {{ dish_in_basket.dish.image.base_64 }}" class="img-checkout" alt="...">
+                                        <br>
+                                        <span>
+                                            {{ dish_in_basket.dish.title }}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="td">
+                                    <span class="dish-price-sp checkout-text">
+                                        {{ dish_in_basket.price_per_item }}₴
+                                    </span>
+                                </td>
+                                <td class="td">
+                                    <input size="1" min="0" class="p-1 dish-in-basket-number-sp checkout-text" 
+                                            value="{{ dish_in_basket.number }}" type="number" name="dish_in_basket_{{ dish_in_basket.id }}">
+                                </td>
+                                <td class="td">
+                                    <span class="total-dish-in-basket-price-sp checkout-text"> 
+                                        {{ dish_in_basket.total_price }}₴
+                                    </span>   
+                                </td>
+                                <td class="td">
+                                    <button class="delete-item-sp" type="button"
+                                    data-dish_id= "{{ dish_in_basket.id }}"
+                                    data-dish_title="{{ dish_in_basket.dish.title }}"
+                                    data-dish_price="{{ dish_in_basket.price_per_item }}"  
+                                    >X</button>
+                                </td>
+                            </tr>
+
+                        {% endfor %}    
+                        </tbody>
+                    </table>
+                {% else %}
+                    <h3 class="text-center">корзина пуста</h3>
+                {% endif %}
+                <div class="text-center total-amount">
+                    <b>Всего: </b> <span class="checkout-text"  id="total_order_price-sp"></span> <span class="checkout-text"> ₴</span>
+                </div>
+                <!--Form order-->
+                <div>
+                    {{ form.name.label_tag }}
+                    {{ form.name }}
+                </div>
+                <div class="col-lg-12">
+                    {{ form.phone.label_tag }}
+                    <span class="form-error">{{ form.phone.errors }}</span>
+                    {{ form.phone }}
+                </div>
+                <div class="col-lg-12">
+                    {{ form.payment.label_tag }}
+                    {{ form.payment }}
+                </div>
+                <div class="col-lg-12">
+                    {{ form.delivery.label_tag }}
+                    {{ form.delivery }}
+                </div>
+                <div class="col-lg-12">
+                    {{ form.time_of_delivery.label_tag }}
+                    {{ form.time_of_delivery }}
+                </div>
+                <div class="col-lg-12">
+                    {{ form.change_from.label_tag }}
+                    {{ form.change_from }}
+                </div>
+                <div class="col-lg-12">
+                    {{ form.count_of_devices.label_tag }}
+                    {{ form.count_of_devices }}
+                </div>
+                <div class="col-lg-12">
+                    {{ form.street.label_tag }}
+                    {{ form.street }}
+                </div>
+                <div class="col-lg-12">
+                    {{ form.house.label_tag }}
+                    {{ form.house }}
+                </div>
+                <div class="col-lg-12">
+                    {{ form.entrance.label_tag }}
+                    {{ form.entrance }}
+                </div>
+                <div class="col-lg-12">
+                    {{ form.intercom.label_tag }}
+                    {{ form.intercom }}
+                </div>
+                <div class="col-lg-12">
+                    {{ form.comments.label_tag }}
+                    {{ form.comments }}
+                </div>
+                <div class="text-center checkout-submit">
+                    <button type="submit" class="btn-lg btn-outline-danger">Заказать</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

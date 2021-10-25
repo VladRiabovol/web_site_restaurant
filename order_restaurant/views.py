@@ -1,10 +1,12 @@
 from django.http import JsonResponse
 from order_restaurant.models import DishInBasket, DishInOrder, Order
 from django.shortcuts import render
-from order_restaurant.forms import OrderForm
+from order_restaurant.forms import OrderForm, BackCallForm
 from django.shortcuts import redirect
 from django.urls import reverse
 from bot import bot
+
+
 def basket_adding(request):
     return_dict = dict()
     session_key = request.session.session_key
@@ -16,18 +18,13 @@ def basket_adding(request):
     number = data.get('number')
     is_delete = data.get('is_delete')
 
-
-
     if is_delete == 'true':
         print(f'delete {data}')
         DishInBasket.objects.filter(id=dish_id).delete()
     else:
-
         new_dish, created = DishInBasket.objects.get_or_create(session_key=session_key,
                                                                   dish_id=dish_id,
                                                                   defaults={'number': number})
-
-        print(f'not delete {new_dish, created}')
         if not created:
             new_dish.number += int(number)
             new_dish.save(force_update=True)
@@ -68,10 +65,6 @@ def checkout(request):
             comments = data.get('comments', 'Уточнить')
 
 
-
-
-
-
             order = Order.objects.create(name=name, phone=phone, payment=payment, delivery=delivery,
                                          change_from=change_from, count_of_devices=count_of_devices,
                                          street=street, house=house, entrance=entrance, intercom=intercom,
@@ -79,11 +72,9 @@ def checkout(request):
             dishes_in_order_bot = ""
             total_price_bot = 0
             for name, value in data.items():
-
                 if name.startswith('dish_in_basket_'):
                     dish_in_basket_id = name.split('dish_in_basket_')[1]
                     dish_in_basket = DishInBasket.objects.get(id=dish_in_basket_id)
-
 
                     dish_in_basket.number = value
                     dish_to_bot = str(dish_in_basket.dish.title) + ': ' + str(value) + 'шт\n'
@@ -117,3 +108,20 @@ def checkout(request):
 
 def end_of_checkout(request):
     return render(request, 'end_of_checkout.html')
+
+def back_call(request):
+    form = BackCallForm(request.POST or None)
+    if request.POST:
+        if form.is_valid():
+            data = request.POST
+            phone = data.get('phone')
+            message = f'Заявка на обратный звонок \n тел: {phone}'
+            bot.bot.send_message(bot.CHAT_ID, message)
+            return redirect(reverse('end_of_back_call'))
+        else:
+            return render(request, 'back_call.html', locals())
+    return render(request, 'back_call.html', locals())
+
+
+def end_of_back_call(request):
+    return render(request, 'end_of_back_call.html')

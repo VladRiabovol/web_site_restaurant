@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block category %}
+<div class="container-fluid">
+    <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                {% for category in categories_list %}
+                    <button class="category-button">
+                        <a class="category-button" text-decoration="none" href="{% url 'sushi-pizza-category-list' category.slug %}">{{category.title}}</a>  
+                    </button>
+                {% if forloop.last %}
+                    <div class="basket-container-sp">
+                            <a href="{% url 'checkout_sushi_pizza' %}"><img  src="{% static 'img/basket.png' %}" alt="cart"><span id="basket_total_number"></span>
+                        {% if dish_total_number_sp %}
+                            <span class="count-basket-sp">{{ dish_total_number_sp }}</span>
+                        {% else %}
+                            <span class="count-basket-sp">0</span>
+                        {% endif %}
+                        </span></a>
+                        <div class="basket-items-sp hidden">
+                            <ol>
+                            {% for dish_in_basket in dishes_in_basket_sp %}
+                                <li>{{ dish_in_basket.dish.title }}*{{dish_in_basket.number}}шт.={{dish_in_basket.total_price}}грн.</li>
+                            {% endfor %}
+                            </ol>
+                        </div>
+                    </div>   
+                            
+                            <!---->
+                    
+                {% endif %}
+                {% endfor %}
+            </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block content %}
+<section class="container my-3 p-0">
+    {% for dish in dish_list %}
+        {% if forloop.first %}
+            <div class="row row-cols-1 row-cols-lg-4 row-cols-md-2 m-0 p-0">
+        {% endif %}
+    <div class="card p-0 m-0 rounded-0 col">
+        <span>
+            <img src="data:image/jpg;base64, {{ dish.image.base_64 }}" class="card-img-top" alt="...">
+        </span>
+        <div class="card-body">
+            <div class="card-title d-block text-center">
+                <h4 class="d-block product-title">
+                        {{ dish.title }}
+                </h4>
+            </div>
+            <div class="card-text mt-2 container">
+                    <ul class="list-group list-group-flush">
+                        <li class="p-0 mt-1 list-group-item text-center">
+                            <small class="text-secondary m-0 p-0 text-uppercase"></small>
+                            <small class="text-secondary badge m-0 p-0">{{ dish.description }}</small>
+                        </li>
+                    </ul> 
+            </div>
+        </div>
+        <div class="card-footer d-flex justify-content-between w-100 align-items-center ps-sm-3 pe-sm-4 px-md-1 px-lg-3">
+            <h5 class="text-dark d-inline p-0 m-0 d-block align-self-auto">
+                <strong>{{ dish.price|floatformat:-2 }}₴</strong>
+            </h5>
+            <div class="btn-group btn-group-sm align-items-baseline align-self-baseline" role="group" aria-label="Basic example">
+                <form class="form-dish-sp">{% csrf_token %}
+                    <div class="input-group input-group-sm mb-6">
+                        <input size="1" type="number" class="form-control in-cart-input"
+                            placeholder="Кол-во" value="1" aria-describedby="to-backet" name="number" id="number">
+                        <button class="btn btn-outline-secondary in-cart-button" type="submit"
+                                data-dish_id= "{{ dish.id }}"
+                                data-dish_title="{{ dish.title }}"
+                                data-dish_price="{{ dish.price }}" 
+                                id="submit_btn" name="submit_btn">в корзину</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% if forloop.counter|divisibleby:4 %}
+        </div>
+        <div class="row row-cols-1 row-cols-lg-4 row-cols-md-2 m-0 p-0">
+    {% endif %}
+    {% if forloop.last %}</div>{% endif %}
+    {% endfor %}
+</section>
+{% endblock %}

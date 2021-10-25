@@ -1,63 +1,65 @@
 from django.db import models
 import base64
-from django.utils.safestring import mark_safe
-from django.utils.text import slugify
 
-class ImagePizza(models.Model):
-    title = models.CharField(max_length=50, verbose_name='Назва')
-    image = models.ImageField(blank=False, upload_to='img/menu_pizza_sushi',
-                              verbose_name='Зображення')
-    base_64 = models.CharField(blank=False, max_length=600000, default="")
+class Image(models.Model):
+    title = models.CharField(max_length=50, verbose_name='Название')
+    image = models.ImageField(blank=False, upload_to='img/menu_restaurant/',
+                              verbose_name='Изображение')
+    base_64 = models.CharField(blank=False, max_length=600000, default="", editable=False)
     slug = models.SlugField(unique=True, blank=True)
 
     def save(self, *args, **kwargs):
         self.base_64 = base64.b64encode(self.image.read()).decode('utf-8')
 
-        super(ImagePizza, self).save(*args, **kwargs)
+        super(Image, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
 
     class Meta:
-        verbose_name = 'Зображення'
-        verbose_name_plural = 'Зображення'
+        verbose_name = 'Изображение'
+        verbose_name_plural = 'Изображение'
 
-class CategoryPizza(models.Model):
+class Category(models.Model):
     title = models.CharField(max_length=50, verbose_name='Заголовок')
-    description = models.TextField(max_length=300, verbose_name='Опис')
-    image = models.ForeignKey(ImagePizza, on_delete=models.SET_NULL, null=True, blank=True,
-                              verbose_name='Зображення')
+    description = models.TextField(max_length=300, verbose_name='Описание', blank=True)
+    image = models.ForeignKey(Image, on_delete=models.SET_NULL, null=True, blank=True,
+                              verbose_name='Изображение')
     slug = models.SlugField(unique=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True,
-                                      verbose_name='Cтворенo')
+                                      verbose_name='Создано')
     updated_at = models.DateTimeField(auto_now=True,
-                                      verbose_name='Оновлено')
+                                      verbose_name='Обновлено')
 
     def __str__(self):
         return self.title
 
 
     class Meta:
-        verbose_name = 'Категорія'
-        verbose_name_plural = 'Категорії'
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
 
-
-class DishPizza(models.Model):
+class Dish(models.Model):
     title = models.CharField(max_length=150, verbose_name='Заголовок')
-    description = models.TextField(max_length=300, verbose_name='Опис')
-    category = models.ForeignKey(CategoryPizza, on_delete=models.CASCADE, null=True,
-                                 verbose_name='Категорії')
-    image = models.ForeignKey(ImagePizza, on_delete=models.CASCADE, verbose_name='Зображення')
-    price = models.DecimalField(default=0.0, max_digits=12, decimal_places=2,
-                                verbose_name='Цiна')
+    description = models.TextField(max_length=300, verbose_name='Описание')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True,
+                                 verbose_name='Категории')
+    image = models.ForeignKey(Image, on_delete=models.CASCADE, verbose_name='Изображение')
+    price = models.DecimalField(default=0.0, max_digits=12, decimal_places=0,
+                                verbose_name='Цена')
+    is_active = models.BooleanField(default=True)
     slug = models.SlugField(unique=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Cтворенo')
-    updated_at = models.DateTimeField(auto_now=True, verbose_name='Оновлено')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создано')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Обновлено')
 
     def __str__(self):
-        return self.title
+        return f'{self.title} {self.price}грн.'
+
+    @property
+    def get_description(self):
+        return [self.description]
 
 
     class Meta:
-        verbose_name = 'Страва'
-        verbose_name_plural = 'Страви'
+        verbose_name = 'Блюдо'
+        verbose_name_plural = 'Блюда'

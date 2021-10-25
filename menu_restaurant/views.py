@@ -1,10 +1,7 @@
-import requests
 from django.views.generic.list import ListView
-from menu_restaurant.models import Dish, Category, Image
+from menu_restaurant.models import Dish, Category
 
 
-
-# Create your views here.
 class RestaurantDishesListView(ListView):
     template_name = "menu_dishes_restaurant.html"
     model = Dish
@@ -15,10 +12,7 @@ class RestaurantDishesListView(ListView):
         context['categories_list'] = Category.objects.filter()
         context['dish_list'] = Dish.objects.all()
         context['session_key'] = self.request.session.session_key if True else self.request.session.cycle_key()
-        print(f'session_key(DishesView): {context["session_key"]}')
         return context
-
-
 
 
 class RestaurantCategoryListView(ListView):

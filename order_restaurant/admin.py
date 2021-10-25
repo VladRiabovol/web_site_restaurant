@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order, DishInOrder, DishInBasket
+from order_restaurant.models import Order, DishInOrder, DishInBasket
 
 class DishInOrderInline(admin.TabularInline):
     model = DishInOrder

@@ -1,7 +1,5 @@
 from django import forms
 from django.core.validators import RegexValidator
-from django.forms import ModelForm
-from order_restaurant.models import Order
 from datetime import time
 
 class OrderForm(forms.Form):
@@ -58,3 +56,15 @@ class OrderForm(forms.Form):
     comments = forms.CharField(label='Комментарий', required=False,
                                widget=forms.widgets.TextInput(
                                attrs={**widget_attrs, **{'id': 'fieldComments'}}))
+
+
+class BackCallForm(forms.Form):
+    widget_attrs = {'class': 'form-control'}
+
+    phone_regex = RegexValidator(regex=r'^0\d{9}$',
+                                 message="Телефон должен быть в формате 0953361656")
+
+    phone = forms.CharField(label="Телефон",
+                            validators=[phone_regex], max_length=17,
+                            widget=forms.widgets.TextInput(
+                            attrs={**widget_attrs, **{'id': 'fieldPhone'}}))

@@ -43,8 +43,8 @@ INSTALLED_APPS = [
     'admin_numeric_filter',
     'menu_restaurant',
     'order_restaurant',
-    #'menu_pizza_sushi',
-    #'order_pizza_sushi',
+    'menu_pizza_sushi',
+    'order_pizza_sushi',
 
 ]
 
@@ -72,7 +72,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 
-                'order_restaurant.context_processors.getting_basket_info'
+                'order_restaurant.context_processors.getting_basket_info',
+                'order_pizza_sushi.context_processors.getting_basket_info_sp',
             ],
         },
     },
