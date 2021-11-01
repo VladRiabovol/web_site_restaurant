@@ -1,7 +1,13 @@
 .img-index {
     width: 100%;
+    height: 100px;
+    float: left;
+}
+.img-index-main {
+    width: 100%;
     height: auto;
     float: left;
+    display: block;
 }
 .img-instagram {
     width: 5%;
@@ -23,7 +29,8 @@
     color:honeydew;
     width: 100%;
     text-align: center;
-    font-size:xx-large;
+    font-size:x-large;
+    padding: 0px;
 }
 .nav-font {
     text-align: center;
@@ -33,6 +40,7 @@
     height: auto;
     font-size: xx-large;
     font-weight:bold;
+    text-decoration: none;
 }
 .nav-button {
     background-color: rgb(31, 28, 28);
@@ -43,6 +51,7 @@
     font-size: xx-large;
     margin: 0;
     border: none;
+    padding: 0;
 }
 .category-button {
     padding: 5px;
@@ -195,6 +204,80 @@
     padding-left: 10px;
 }
 #map {
-    width: 500px;
-    height: 500px;
+    width: 250px;
+    height: 200px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+.index-footer {
+    background-color: rgb(31, 28, 28);
+}
+.footer {
+    font-family: 'Ubuntu Mono', monospace;
+    color:honeydew;
+    width: 100%;
+    text-align: center;
+    font-size:x-large;
+}
+.img-orbita {
+    width: 150px;
+    height: 100px;
+}
+.img-eurostock {
+    width: 200px;
+    height: 100px;
+}
+.img-instagram-footer {
+    width: 30px;
+    height: 30px;
+}
+.img-pizza-sushi {
+    width: 150px;
+    height: 100px;
+}
+.img-about-us-slide {
+    width: auto;
+    height: auto;
+}
+.div_slider {
+    padding: 0;
+}
+.content-about-us {
+    background-color: rgb(31, 28, 28);
+}
+.about_us_slider {
+    background-color: rgb(31, 28, 28);
+    position: relative;
+    margin: 20px;
+}
+.about_us_description {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-left: 10px;
+    padding-right: 5px;
+    background-color: rgb(31, 28, 28);
+    font-family: 'Roboto', sans-serif;
+    color: whitesmoke;
+}
+.about_us_slider .slick-arrow {
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+}
+.about_us_slider .slick-arrow.slick-prev {
+    left: 20px;
+}
+.about_us_slider .slick-arrow.slick-next {
+    right: 20px;
+}
+.about_us_slider .slick-list {
+
+}
+.img-dish {
+    width: 300px;
+    height: 200px;
+    text-align: center;
+    align-items: center;
+    padding: 0px 5px 0px 5px;
 }

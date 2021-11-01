@@ -2,7 +2,14 @@
 {% load static %}
 
 {% block content %}
-<div>
-    <img class="img-index" src="{% static 'img/main.jpg' %}" alt="Brooklyn">
-</div>
+
+<div class="img-index-main"><img class="img-index-main" src="{% static 'img/slider/index/main.JPG' %}" alt="Brooklyn"></div>
+    
+<!--<div>
+    <img class="img-index" src="{% static 'img/slider/index/main.JPG' %}" alt="Brooklyn">
+</div>-->
+{% endblock %}
+
+{% block footer %}
+{% include 'partials/google_maps.html' %}
 {% endblock %}
