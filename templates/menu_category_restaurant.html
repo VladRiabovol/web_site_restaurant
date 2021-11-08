@@ -54,13 +54,15 @@
                 </h4>
             </div>
             <div class="card-text mt-2 container">
-                    <ul class="list-group list-group-flush">
-                        <li class="p-0 mt-1 list-group-item text-center">
-                            <small class="text-secondary m-0 p-0 text-uppercase"></small>
-                            <small class="text-secondary badge m-0 p-0">{{ dish.description }}</small>
-                        </li>
-                    </ul> 
-            </div>
+                <ul class="list-group list-group-flush">
+                    <li class="p-0 mt-0 list-group-item text-center">
+                        <small class="text-secondary m-0 p-0"></small>
+                        {% for item in dish.get_description_as_list %}
+                        <small class="text-secondary m-0 p-0 text-center">{{ item }}</small>
+                        {% endfor %}
+                    </li>
+                </ul> 
+        </div>
         </div>
         <div class="card-footer d-flex justify-content-between w-100 align-items-center ps-sm-3 pe-sm-4 px-md-1 px-lg-3">
             <h5 class="text-dark d-inline p-0 m-0 d-block align-self-auto">

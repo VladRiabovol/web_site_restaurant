@@ -3,7 +3,7 @@ import base64
 
 class Image(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название')
-    image = models.ImageField(blank=False, upload_to='img/menu_restaurant/',
+    image = models.ImageField(blank=False, upload_to='img/menu_pizza_sushi/',
                               verbose_name='Изображение')
     base_64 = models.CharField(blank=False, max_length=600000, default="", editable=False)
     slug = models.SlugField(unique=True, blank=True)
@@ -56,8 +56,9 @@ class Dish(models.Model):
         return f'{self.title} {self.price}грн.'
 
     @property
-    def get_description(self):
-        return [self.description]
+    def get_description_as_list(self):
+        return [sentence for sentence in self.description.split('!')]
+
 
 
     class Meta:

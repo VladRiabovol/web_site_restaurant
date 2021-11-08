@@ -56,8 +56,8 @@ class Dish(models.Model):
         return f'{self.title} {self.price}грн.'
 
     @property
-    def get_description(self):
-        return [self.description]
+    def get_description_as_list(self):
+        return [sentence for sentence in self.description.split('!')]
 
 
     class Meta:

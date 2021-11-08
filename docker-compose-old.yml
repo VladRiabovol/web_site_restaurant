@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  brooklyn_web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/src
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+  db:
+    image: postgres
+    volumes:
+      - postgres_data:/Users/mak/Desktop/db
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+
+volumes:
+  postgres_data:
+
+
+
+
+
+
+
+
+

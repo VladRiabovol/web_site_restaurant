@@ -1,5 +1,7 @@
 from django.views.generic.list import ListView
 from menu_restaurant.models import Dish, Category
+import logging
+logger = logging.getLogger(__name__)
 
 
 class RestaurantDishesListView(ListView):
@@ -7,8 +9,8 @@ class RestaurantDishesListView(ListView):
     model = Dish
 
     def get_context_data(self, **kwargs):
-
         context = super().get_context_data(**kwargs)
+        logging.error('something wrong')
         context['categories_list'] = Category.objects.filter()
         context['dish_list'] = Dish.objects.all()
         context['session_key'] = self.request.session.session_key if True else self.request.session.cycle_key()
