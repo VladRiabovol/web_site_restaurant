@@ -91,26 +91,26 @@ WSGI_APPLICATION = 'web_site_restaurant.wsgi.application'
 #        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
 #}
-#DATABASES = {
-#    "default": {
-#        "ENGINE": "django.db.backends.postgresql_psycopg2",
-#        "NAME": "brooklynland_db",
-#        "USER": "admin",
-#        "PASSWORD": "Aspid2515",
-#        "HOST": "localhost",
-#        "PORT": "5432",
-#    }
-#}
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "postgres",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
-        "HOST": "db",
+        "NAME": "brooklynland_db",
+        "USER": "admin",
+        "PASSWORD": "Aspid2515",
+        "HOST": "localhost",
         "PORT": "5432",
     }
 }
+#DATABASES = {
+#    "default": {
+#        "ENGINE": "django.db.backends.postgresql_psycopg2",
+#        "NAME": "postgres",
+#        "USER": "postgres",
+#        "PASSWORD": "postgres",
+#        "HOST": "db",
+#        "PORT": "5432",
+#    }
+#}
 
 
 # Password validation

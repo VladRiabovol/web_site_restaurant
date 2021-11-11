@@ -26,7 +26,7 @@ urlpatterns = [
     path('', include('order_pizza_sushi.urls')),
     path('', include('menu_restaurant.urls')),
     path('', include('order_restaurant.urls')),
-    path('index/', views.MainPageView.as_view(), name='index'),
+    path('', views.MainPageView.as_view(), name='index'),
 
 ]
 
