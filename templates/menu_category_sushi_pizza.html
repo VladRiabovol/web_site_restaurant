@@ -12,7 +12,7 @@
                     </button>
                     {% if forloop.last %}
                     <div class="basket-container-sp">
-                            <a href="{% url 'checkout_sushi_pizza' %}"><img  src="{% static 'img/basket.png' %}" alt="cart"><span id="basket_total_number"></span>
+                            <a href="{% url 'checkout_sushi_pizza' %}"><img src="{% static '../static/img/basket.png' %}" alt="cart"><span id="basket_total_number"></span>
                         {% if dish_total_number_sp %}
                             <span class="count-basket-sp">{{ dish_total_number_sp }}</span>
                         {% else %}

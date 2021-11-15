@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,12 +20,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-n)u$jwbfe83g&)&kn__p#q*&yy1_18=z^qs%-6r@^l00_^sgts'
+#SECRET_KEY = 'django-insecure-n)u$jwbfe83g&)&kn__p#q*&yy1_18=z^qs%-6r@^l00_^sgts'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+DEBUG = bool(int(os.environ.get("DEBUG", default=1)))
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0',]
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+
 
 
 # Application definition
@@ -39,12 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'admin_numeric_filter',
-    'menu_restaurant',
     'order_restaurant',
+    'menu_restaurant',
     'menu_pizza_sushi',
     'order_pizza_sushi',
+    'django.contrib.staticfiles',
 
 ]
 
@@ -71,7 +74,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-
                 'order_restaurant.context_processors.getting_basket_info',
                 'order_pizza_sushi.context_processors.getting_basket_info_sp',
             ],
@@ -93,24 +95,14 @@ WSGI_APPLICATION = 'web_site_restaurant.wsgi.application'
 #}
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "brooklynland_db",
-        "USER": "admin",
-        "PASSWORD": "Aspid2515",
-        "HOST": "localhost",
-        "PORT": "5432",
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR, 'db.sqlite3')),
+        "USER": os.environ.get("SQL_USER", 'user'),
+        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
+        "HOST": os.environ.get("SQL_HOST", "localhost"),
+        "PORT": os.environ.get("SQL_PORT", "5432"),
     }
 }
-#DATABASES = {
-#    "default": {
-#        "ENGINE": "django.db.backends.postgresql_psycopg2",
-#        "NAME": "postgres",
-#        "USER": "postgres",
-#        "PASSWORD": "postgres",
-#        "HOST": "db",
-#        "PORT": "5432",
-#    }
-#}
 
 
 # Password validation
@@ -149,13 +141,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, '../order_restaurant/static')
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+#STATIC_URL = '/static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, '../order_restaurant/static')
 
 STATICFILES_DIRS = [
-    "menu_pizza_sushi" + STATIC_URL,
-    "order_pizza_sushi" + STATIC_URL,
-    "menu_restaurant" + STATIC_URL,
+    #"menu_pizza_sushi" + STATIC_URL,
+    #"order_pizza_sushi" + STATIC_URL,
+    #"menu_restaurant" + STATIC_URL,
     "order_restaurant" + STATIC_URL,
 ]
 
@@ -167,10 +162,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-ALLOWED_HOSTS = [
-  '127.0.0.1',
-  '0.0.0.0',]
 
 LOGGING = {
     'version': 1,
