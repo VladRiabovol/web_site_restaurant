@@ -5,7 +5,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile.prod
-    command: gunicorn web_site_restaurant.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn web_site_restaurant.wsgi:application --bind 164.92.252.252:8000
     volumes:
       - static_volume:/home/app/web/static
       - media_volume:/home/app/web/media
