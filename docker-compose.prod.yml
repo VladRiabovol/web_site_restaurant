@@ -15,12 +15,16 @@ services:
       - ./.env.prod
     depends_on:
       - db
+    networks:
+      - network
   db:
     image: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./.env.prod.db
+    networks:
+      - network
   nginx:
     build: ./nginx
     volumes:
@@ -30,8 +34,14 @@ services:
       - 80:80
     depends_on:
       - web
+    networks:
+      - network
 
 volumes:
   postgres_data:
   static_volume:
   media_volume:
+
+networks:
+  network:
+    external: true
