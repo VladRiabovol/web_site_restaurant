@@ -1,0 +1,17 @@
+# web_site_restaurant
+django project
+
+bootstrap5
+jquery
+slick-slider
+nice-number
+ajax
+Django==3.2.3
+Pillow==8.2.0
+psycopg2==2.9.1
+gunicorn==20.1.0
+django-baton==2.2.1
+django-admin-numeric-filter==0.1.6
+pyTelegramBotAPI==4.1.1
+
+link to the project - 
