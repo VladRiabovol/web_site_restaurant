@@ -9,8 +9,9 @@ food delivery project from two divisions a food court and a restaurant, with ove
   with photos, links to instagramm, geolocation;
 
 - two baskets for each division with checkout page;
-- notification system in telegram group about a new order or a call back.
-
+- notification system in telegram group about a new order or a call back;
+- simple, convenient and beautiful admin panel for website management:
+ ![](https://media.giphy.com/media/r3VR25S7HC5bqa99Z5/giphy.gif)
 link to the project - www.brooklynland.com.ua
 
 ## Tools:
