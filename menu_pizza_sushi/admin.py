@@ -52,7 +52,6 @@ class DishAdmin(admin.ModelAdmin):
     get_image.short_description = 'Изображение'
 
 
-
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Dish, DishAdmin)

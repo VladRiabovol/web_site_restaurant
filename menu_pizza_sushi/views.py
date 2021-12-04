@@ -10,9 +10,8 @@ class SushiPizzaDishesListView(ListView):
 
         context = super().get_context_data(**kwargs)
         context['categories_list'] = Category.objects.filter()
-        context['dish_list'] = Dish.objects.all()
+        context['dish_list'] = Dish.objects.all().order_by("category__slug")
         context['session_key'] = self.request.session.session_key if True else self.request.session.cycle_key()
-
         return context
 
 
@@ -29,6 +28,5 @@ class SushiPizzaCategoryListView(ListView):
         context['category'] = Category.objects.get(slug=self.kwargs['category'])
         context['categories_list'] = Category.objects.all().exclude(slug=context['category'].slug)
         context['session_key'] = self.request.session.session_key if True else self.request.session.cycle_key()
-        print(f'session_key(CategoryView): {context["session_key"]}')
         return context
 

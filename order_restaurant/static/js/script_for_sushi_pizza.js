@@ -3,9 +3,7 @@ $(document).ready(function () {
     function basketSPUpdating(dish_id, number, is_delete) {
         var data = {};
         data.dish_id = dish_id;
-        //console.log('data.dish_id' + data.dish_id)
         data.number = number;
-        //console.log('data.number' + data.number)
         var csrf_token = $('.form-dish-sp [name="csrfmiddlewaretoken"]').val();
         if (csrf_token == undefined) {
             csrf_token = $('.form [name="csrfmiddlewaretoken"]').val();
@@ -13,7 +11,6 @@ $(document).ready(function () {
         data['csrfmiddlewaretoken'] = csrf_token;
         console.log(csrf_token);
         var url = "/basket_adding_sushi_pizza/";
-        //console.log(data.dish_id, data.number);
         console.log(is_delete)
         if (is_delete == true ) {
             data["is_delete"] = true;
@@ -25,13 +22,8 @@ $(document).ready(function () {
             data: data,
             cache: true,
             success: function (data) {
-                //console.log('OK');
-                //console.log(data);
-                //console.log(data.dish_total_number);
                 if (data.dish_total_number) {
                     $('.count-basket-sp').text(data.dish_total_number);
-
-                    //console.log(data.dishes);
                     $('.basket-items-sp ol').html('');
                     $.each(data.dishes, function (k, v) {
                         $('.basket-items-sp ol').append('<li>'+v.title+' '+v.item_number+' шт по '+v.price_per_item+ '</li>');
@@ -47,10 +39,10 @@ $(document).ready(function () {
     });
     };
 
+    //add dish to basket.
     $(document).on('submit', '.form-dish-sp', function (e) {
         e.preventDefault();
         var number = $(this).find('.in-cart-input').val();
-        //console.log(number + ' sibling');
         var submit_btn = $(this).find('.in-cart-button');
         var dish_id = submit_btn.data("dish_id");
         var dish_title = submit_btn.data("dish_title");
@@ -66,11 +58,6 @@ $(document).ready(function () {
         $('.basket-items-sp').toggleClass('hidden');
     };
 
-    //$('.basket-container').on('click', function (e) {
-    //    e.preventDefault();
-    //    showingBasket();
-    //});
-
     $('.basket-container-sp').mouseover(function (e) {
         e.preventDefault();
         showingBasket();
@@ -81,6 +68,7 @@ $(document).ready(function () {
         showingBasket();
     });
 
+    //delete dish from basket.
     $(document).on('click', '.delete-item-sp', function (e) {
         e.preventDefault();
         var dish_id = $(this).data("dish_id");
@@ -91,11 +79,6 @@ $(document).ready(function () {
         console.log(dish_title);
         console.log(dish_price);
         console.log('number ' + number);
-
-        //console.log($(this).data);
-        //dish_id = $(this).data('dish_id');
-        //console.log(dish_id);
-        //console.log('data from ondelete');
 
         basketSPUpdating(dish_id, number, is_delete=true)
         $(this).closest('tr').remove();
@@ -109,6 +92,7 @@ $(document).ready(function () {
         $('#total_order_price-sp').text(total_order_price);
     };
 
+    //change quantity of dishes in basket.
     $(document).on('click', ".plus-minus-button", function () {
         var current_number = $(this).siblings('.dish-in-basket-number-sp').val();
         var current_tr = $(this).closest('tr');

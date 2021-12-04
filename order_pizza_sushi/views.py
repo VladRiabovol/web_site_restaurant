@@ -25,8 +25,6 @@ def basket_adding(request):
         new_dish, created = DishInBasket.objects.get_or_create(session_key=session_key,
                                                                   dish_id=dish_id,
                                                                   defaults={'number': number})
-
-        print(f'not delete {new_dish, created}')
         if not created:
             new_dish.number += int(number)
             new_dish.save(force_update=True)
@@ -43,6 +41,7 @@ def basket_adding(request):
         dish_dict['item_number'] = item.number
         return_dict['dishes'].append(dish_dict)
     return JsonResponse(return_dict)
+
 
 def checkout(request):
     session_key = request.session.session_key
@@ -64,7 +63,6 @@ def checkout(request):
             time_of_delivery = data.get('time_of_delivery', 'Уточнить')
             comments = data.get('comments', 'Уточнить')
 
-
             order = Order.objects.create(name=name, phone=phone, payment=payment, delivery=delivery,
                                          change_from=change_from, count_of_devices=count_of_devices,
                                          street=street, house=house, entrance=entrance, intercom=intercom,
@@ -72,17 +70,13 @@ def checkout(request):
             dishes_in_order_bot = ""
             total_price_bot = 0
             for name, value in data.items():
-
                 if name.startswith('dish_in_basket_'):
                     dish_in_basket_id = name.split('dish_in_basket_')[1]
                     dish_in_basket = DishInBasket.objects.get(id=dish_in_basket_id)
-
-
                     dish_in_basket.number = value
                     dish_to_bot = str(dish_in_basket.dish.title) + ': ' + str(value) + 'шт\n'
                     dishes_in_order_bot += dish_to_bot
                     total_price_bot += int(dish_in_basket.dish.price) * int(value)
-                    print(dishes_in_order_bot)
 
                     dish_in_basket.save(force_update=True)
 
@@ -99,10 +93,8 @@ def checkout(request):
                       f'Блюда: \n{dishes_in_order_bot}' \
                       f'Сумма заказа: {total_price_bot}'
 
-
             bot.bot.send_message(bot.CHAT_ID, message)
             request.session.cycle_key()
-
             return redirect(reverse('end_of_checkout'))
         else:
             return render(request, 'checkout_sushi_pizza.html', locals())

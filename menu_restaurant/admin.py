@@ -18,7 +18,6 @@ class ImageAdmin(admin.ModelAdmin):
     get_image.short_description = 'Изображение'
 
 
-
 class CategoryAdmin(admin.ModelAdmin):
     model = Category
     prepopulated_fields = {'slug': ('title',), }
@@ -50,7 +49,6 @@ class DishAdmin(admin.ModelAdmin):
         return mark_safe(f'<img src="{obj.image.image.url}" width="100" height="60">')
 
     get_image.short_description = 'Изображение'
-
 
 
 admin.site.register(Image, ImageAdmin)

@@ -1,5 +1,4 @@
 from django.urls import path
-
 from order_restaurant import views
 
 urlpatterns = [

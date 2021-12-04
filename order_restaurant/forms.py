@@ -2,6 +2,7 @@ from django import forms
 from django.core.validators import RegexValidator
 from datetime import time
 
+
 class OrderForm(forms.Form):
     DELIVERY = (
         ('Доставка', 'Доставка'),

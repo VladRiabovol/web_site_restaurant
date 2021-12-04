@@ -1,8 +1,6 @@
 from datetime import time
-
 from django.db import models
 from django.db.models.signals import post_save
-
 from menu_restaurant.models import Dish
 
 
@@ -62,6 +60,7 @@ class DishInOrder(models.Model):
     def __str__(self):
         return f'{self.dish.title}'
 
+
     class Meta:
         verbose_name = 'Блюда в заказе'
         verbose_name_plural = 'Блюда в заказе'
@@ -70,14 +69,11 @@ class DishInOrder(models.Model):
         price_per_item = self.dish.price
         self.price_per_item = price_per_item
         self.total_price = int(self.number) * price_per_item
-
-
         super(DishInOrder, self).save(*args, **kwargs)
 
 def dishes_in_order_post_save(sender, instance, created, **kwargs):
         order = instance.order
         all_dishes_in_order = DishInOrder.objects.filter(order=order)
-
         order_total_price = 0
         for item in all_dishes_in_order:
             order_total_price += item.total_price
@@ -102,6 +98,7 @@ class DishInBasket(models.Model):
     def __str__(self):
         return f'{self.dish.title}'
 
+
     class Meta:
         verbose_name = 'Блюда в корзине'
         verbose_name_plural = 'Блюда в корзине'
@@ -110,6 +107,4 @@ class DishInBasket(models.Model):
         price_per_item = self.dish.price
         self.price_per_item = price_per_item
         self.total_price = int(self.number) * price_per_item
-
-
         super(DishInBasket, self).save(*args, **kwargs)

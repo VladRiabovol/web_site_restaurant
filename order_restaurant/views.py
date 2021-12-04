@@ -75,13 +75,10 @@ def checkout(request):
                 if name.startswith('dish_in_basket_'):
                     dish_in_basket_id = name.split('dish_in_basket_')[1]
                     dish_in_basket = DishInBasket.objects.get(id=dish_in_basket_id)
-
                     dish_in_basket.number = value
                     dish_to_bot = str(dish_in_basket.dish.title) + ': ' + str(value) + 'шт\n'
                     dishes_in_order_bot += dish_to_bot
                     total_price_bot += int(dish_in_basket.dish.price) * int(value)
-                    print(dishes_in_order_bot)
-
                     dish_in_basket.save(force_update=True)
 
                     DishInOrder.objects.create(dish=dish_in_basket.dish, number=dish_in_basket.number,
@@ -97,10 +94,8 @@ def checkout(request):
                       f'Блюда: \n{dishes_in_order_bot}' \
                       f'Сумма заказа: {total_price_bot}'
 
-
             bot.bot.send_message(bot.CHAT_ID, message)
             request.session.cycle_key()
-
             return redirect(reverse('end_of_checkout'))
         else:
             return render(request, 'checkout.html', locals())
@@ -121,7 +116,6 @@ def back_call(request):
         else:
             return render(request, 'back_call.html', locals())
     return render(request, 'back_call.html', locals())
-
 
 def end_of_back_call(request):
     return render(request, 'end_of_back_call.html')

@@ -1,3 +1,4 @@
+//Settings for slider
 $(document).ready(function () {
     $('.about_us_slider').slick({
         infinite: true,

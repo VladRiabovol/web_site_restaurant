@@ -1,6 +1,7 @@
 from django.db import models
 import base64
 
+
 class Image(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название')
     image = models.ImageField(blank=False, upload_to='img/menu_restaurant/',
@@ -20,6 +21,7 @@ class Image(models.Model):
         verbose_name = 'Изображение'
         verbose_name_plural = 'Изображение'
 
+
 class Category(models.Model):
     title = models.CharField(max_length=50, verbose_name='Заголовок')
     description = models.TextField(max_length=300, verbose_name='Описание', blank=True)
@@ -38,6 +40,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
+
 
 class Dish(models.Model):
     title = models.CharField(max_length=150, verbose_name='Заголовок')

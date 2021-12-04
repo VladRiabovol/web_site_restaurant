@@ -98,7 +98,6 @@
     float: right;
     position: relative;
     border-radius: 5px;
-
 }
 .basket-container a {
     text-decoration: none;
@@ -126,7 +125,6 @@
     float: right;
     position: relative;
     border-radius: 5px;
-
 }
 .basket-container-sp a {
     text-decoration: none;
@@ -159,7 +157,6 @@
     top: 24px;
     right: 21px;
 }
-
 .button-checkout {
     color: black;
     font-size: medium;
@@ -171,7 +168,6 @@
     visibility: hidden;
 }
 .title-checkout {
-    
 }
 .checkout-text {
     font-size:medium;
@@ -272,7 +268,6 @@
     right: 20px;
 }
 .about_us_slider .slick-list {
-
 }
 .img-dish {
     width: 300px;

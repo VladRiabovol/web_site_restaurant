@@ -1,6 +1,7 @@
 from django.db import models
 import base64
 
+
 class Image(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название')
     image = models.ImageField(blank=False, upload_to='img/menu_pizza_sushi/',
@@ -10,7 +11,6 @@ class Image(models.Model):
 
     def save(self, *args, **kwargs):
         self.base_64 = base64.b64encode(self.image.read()).decode('utf-8')
-
         super(Image, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -19,6 +19,7 @@ class Image(models.Model):
     class Meta:
         verbose_name = 'Изображение'
         verbose_name_plural = 'Изображение'
+
 
 class Category(models.Model):
     title = models.CharField(max_length=50, verbose_name='Заголовок')
@@ -39,6 +40,7 @@ class Category(models.Model):
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
+
 class Dish(models.Model):
     title = models.CharField(max_length=150, verbose_name='Заголовок')
     description = models.TextField(max_length=300, verbose_name='Описание')
@@ -58,7 +60,6 @@ class Dish(models.Model):
     @property
     def get_description_as_list(self):
         return [sentence for sentence in self.description.split('!')]
-
 
 
     class Meta:

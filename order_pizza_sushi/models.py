@@ -1,8 +1,6 @@
 from datetime import time
-
 from django.db import models
 from django.db.models.signals import post_save
-
 from menu_pizza_sushi.models import Dish
 
 
@@ -43,6 +41,7 @@ class Order(models.Model):
 
         super(Order, self).save(*args, **kwargs)
 
+
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
@@ -62,6 +61,7 @@ class DishInOrder(models.Model):
     def __str__(self):
         return f'{self.dish.title}'
 
+
     class Meta:
         verbose_name = 'Блюда в заказе'
         verbose_name_plural = 'Блюда в заказе'
@@ -70,14 +70,11 @@ class DishInOrder(models.Model):
         price_per_item = self.dish.price
         self.price_per_item = price_per_item
         self.total_price = int(self.number) * price_per_item
-
-
         super(DishInOrder, self).save(*args, **kwargs)
 
 def dishes_in_order_post_save(sender, instance, created, **kwargs):
         order = instance.order
         all_dishes_in_order = DishInOrder.objects.filter(order=order)
-
         order_total_price = 0
         for item in all_dishes_in_order:
             order_total_price += item.total_price
@@ -85,6 +82,7 @@ def dishes_in_order_post_save(sender, instance, created, **kwargs):
         instance.order.save(force_update=True)
 
 post_save.connect(dishes_in_order_post_save, sender=DishInOrder)
+
 
 class DishInBasket(models.Model):
     session_key = models.CharField(max_length=128, default=None)
@@ -110,6 +108,4 @@ class DishInBasket(models.Model):
         price_per_item = self.dish.price
         self.price_per_item = price_per_item
         self.total_price = int(self.number) * price_per_item
-
-
         super(DishInBasket, self).save(*args, **kwargs)
