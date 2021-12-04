@@ -27,4 +27,8 @@ gunicorn==20.1.0
 django-baton==2.2.1
 django-admin-numeric-filter==0.1.6
 pyTelegramBotAPI==4.1.1
+docker==20.10.8
+docker-compose==1.29.2
+
 google maps api
+logging
