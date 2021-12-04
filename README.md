@@ -32,6 +32,5 @@ link to the project - www.brooklynland.com.ua
 - pyTelegramBotAPI==4.1.1
 - docker==20.10.8
 - docker-compose==1.29.2
-
-- google maps api
+- google maps geolocation
 - logging
