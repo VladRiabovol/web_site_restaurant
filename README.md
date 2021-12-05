@@ -10,6 +10,7 @@ food delivery project from two divisions a food court and a restaurant, with ove
 
 - two baskets for each division with checkout page;
 - notification system in telegram group about a new order or a call back;
+- adapts to any device;
 - simple, convenient and beautiful admin panel for website management:
 
  ![](https://media.giphy.com/media/uSNOHMCK74rpKETqjr/giphy.gif)
